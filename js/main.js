@@ -1,22 +1,27 @@
-let money = 10000;
+let money = +prompt("Ваш месячный доход");
 let income = 'taxi';
-let addExpenses = "house, insurance, car";
-let deposit = true;
+let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую");
+let deposit = confirm("Есть ли у вас депозит в банке?");
 let mission = 50000;
 let period = 5;
 
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
+console.log(addExpenses.split(", "));
+console.log(typeof money + " " +typeof income +  " " + typeof deposit);
 
-console.log(income.length);
+let que1 = prompt("Какие обязательные ежемесячные расходы у вас есть?");
+let que2 = +prompt("Во сколько это обойдется?");
+let que3 = prompt("Какие обязательные ежемесячные расходы у вас есть?");
+let que4 = +prompt("Во сколько это обойдется?");
 
-console.log("Период "+ period +" месяцев");
-console.log("Цель заработать "+ mission +" долларов");
+budgetMonth = money - que2 - que4;
+console.log(budgetMonth);
 
-let exp = addExpenses.toLowerCase();
-let expArr = exp.split(", ");
-console.log(expArr);
+console.log(Math.ceil(mission/budgetMonth));
 
-let budgetDay = money/30;
-console.log(budgetDay + "\n" +money%30);
+let budgetDay = Math.floor(budgetMonth/30);
+console.log(budgetDay);
+
+if(budgetDay>800) console.log("Высокий уровень дохода");
+else if(budgetDay>300 && budgetDay<800) console.log("Средний уровень дохода");
+else if(budgetDay>0 && budgetDay<300) console.log("Низкий уровень дохода");
+else if(budgetDay<0) console.log("Что то пошло не так");
