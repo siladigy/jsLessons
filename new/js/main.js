@@ -1,12 +1,19 @@
-let num = 266219;
 
-let arr = (""+num).split("");
-let sum = 1;
-for(var i = 0; i < arr.length; i++){
-    sum *= arr[i];
-    }
-console.log(sum);
+function checkTypeOf(value, callback) {
+    let type = 'не строка';
+    if(typeof(value) == 'string'){
+      type = 'строка';
+    } 
+    console.log(type);
 
-let digit = sum**3;
-let str = digit.toString();
-console.log(str.substr(1,2));
+    return callback(value);
+  }
+
+  function checkStrLength(label) {
+      label = label.trim();
+    if(label.length > 30){
+        return label.substr(0, 30) + '...';
+    } else 
+    return label;
+  }
+  console.log(checkTypeOf("   uhwu   ", checkStrLength));
