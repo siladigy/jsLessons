@@ -52,11 +52,15 @@ let expensesAmount = expensesMonth();
 
 
 function getAccumulatedMonth() {
-    return(money - expensesAmount);
-}
+    let month = (money - expensesAmount);
+    if(month > 0){
+        console.log(month);
+    } else {
+        console.log("Нет накоплений за месяц");
+    }
+    return month;
+};
 let accumulatedMonth = getAccumulatedMonth();
-
-console.log("Накопления за месяц : " + accumulatedMonth);
 
 function getTargetMonth() {
     let result = Math.floor(mission/accumulatedMonth);
@@ -82,8 +86,8 @@ console.log(budgetDay());
 
 function getStatusIncome() {
     if(budgetDay()>800) return("Высокий уровень дохода");
-    else if(budgetDay()>300 && budgetDay<800) return("Средний уровень дохода");
-    else if(budgetDay()>0 && budgetDay<300) return("Низкий уровень дохода");
-    else if(budgetDay()<0) return("Что то пошло не так");
+    else if(budgetDay()>300 && budgetDay()<800) return("Средний уровень дохода");
+    else if(budgetDay()>0 && budgetDay()<300) return("Низкий уровень дохода");
+    else return("Что то пошло не так");
 }
 console.log(getStatusIncome());
