@@ -10,7 +10,7 @@ function checkTypeOf(value, callback) {
   }
 
   function checkStrLength(label) {
-      label = label.trim();
+      label = (label.toString()).trim();
     if(label.length > 30){
         return label.substr(0, 30) + '...';
     } else 
