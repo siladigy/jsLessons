@@ -38,10 +38,10 @@ let expensesMonth = function (){
             expenses2 = prompt("Какие обязательные ежемесячные расходы у вас есть?");
         }
         
-        sum += prompt("Во сколько это обойдется?");
+        sum += +prompt("Во сколько это обойдется?");
         
         while(isNaN(sum) || sum == '' || sum == null){
-            sum = prompt("Во сколько это обойдется?");
+            sum = +prompt("Во сколько это обойдется?");
         }
         
     }
