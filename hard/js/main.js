@@ -1,18 +1,12 @@
-function checkTypeOf(value, callback) {
-  let type = 'не строка';
-  if(typeof(value) == 'string'){
-    type = 'строка';
-  } 
-  console.log(type);
+let week = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
 
-  return callback(value);
+for (let day in week) {
+  toDay = new Date().getDay() - 1
+  if(day == toDay){
+    document.write("<b>"+week[day]+ "</b><br>");
+  } else if (week[day] == "суббота" || week[day] == "воскресенье") {
+    document.write("<i>" + week[day] + "</i><br>");
+  } else{
+    document.write(week[day]+ "<br>");
+  }
 }
-
-function checkStrLength(label) {
-    label = (label.toString()).trim();
-  if(label.length > 30){
-      return label.substr(0, 30) + '...';
-  } else 
-  return label;
-}
-console.log(checkTypeOf("  adasda asd   ", checkStrLength));
