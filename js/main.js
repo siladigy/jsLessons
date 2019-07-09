@@ -74,6 +74,7 @@ console.log(appData.getTargetMonth());
 
 console.log(appData.getStatusIncome());
 
+console.log("Наша программа включает в себя данные: ");
 for (let data in appData){
-    console.log("Наша программа включает в себя данные: ", data);
+    console.log(data);
 }
