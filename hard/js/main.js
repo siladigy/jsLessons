@@ -1,12 +1,15 @@
-let week = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
+let h = new Date().getHours(),
+    m = new Date().getMinutes(),
+    s = new Date().getSeconds(),
+    day = new Date().getDate(),
+    month = new Date().getMonth() + 1,
+    year = new Date().getFullYear();
 
-for (let day in week) {
-  toDay = new Date().getDay() - 1
-  if(day == toDay){
-    document.write("<b>"+week[day]+ "</b><br>");
-  } else if (week[day] == "суббота" || week[day] == "воскресенье") {
-    document.write("<i>" + week[day] + "</i><br>");
-  } else{
-    document.write(week[day]+ "<br>");
-  }
+function addZero(date) {
+date = date.toString();
+if(date.length == 1) return '0' + date;
+else return date;
 }
+
+document.querySelector('body').innerHTML = h + ":" + m + ":" + s + " " + addZero(day) + "." + addZero(month) + "." + year ;
+
