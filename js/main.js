@@ -22,7 +22,8 @@ let start = document.getElementById('start'),
     depositPercent = document.querySelector('.deposit-percent'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
-    incomeItem = document.querySelectorAll('.income-items ');
+    incomeItem = document.querySelectorAll('.income-items '),
+    inputs = document.getElementsByTagName('input');
 
 
 
@@ -81,7 +82,6 @@ let appData = {
            });
     },
     disableInput: function (){
-        let inputs = document.getElementsByTagName('input');
             for(let i = 0; i < inputs.length; i++){
                 if(inputs[i].type == 'text'){
                     inputs[i].disabled = 'disabled';
@@ -90,6 +90,9 @@ let appData = {
     },
     addExpensesBlock: function(){
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        for (let i = 0; i < cloneExpensesItem.childNodes.length; i++) {
+            cloneExpensesItem.childNodes[i].value = "";
+        }
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
         expensesItems = document.querySelectorAll('.expenses-items');
         if(expensesItems.length === 3){
@@ -107,6 +110,9 @@ let appData = {
     },
     addIncomeBlock: function() {
         let cloneIncomeItem = incomeItem[0].cloneNode(true);
+        for (let i = 0; i < cloneIncomeItem.childNodes.length; i++) {
+            cloneIncomeItem.childNodes[i].value = "";
+        }
         incomeItem[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
         incomeItem = document.querySelectorAll('.income-items');
         if(incomeItem.length === 3){
@@ -182,11 +188,16 @@ let appData = {
         if(salaryAmount.value !== ''){ 
             appData.start();
         } 
+    },
+    inputWords: function() {
+
+        for(let i = 0; i < inputs.length; i++){
+            inputs[i].replace(/[^0-9]/g,'');
+        }
+        
     }
 }
-// start.disabled = true;
-// start.style.cursor= "not-allowed";
-// document.addEventListener('mousemove', appData.getStartEnable);
+appData.inputWords();
 start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
@@ -195,26 +206,5 @@ periodSelect.addEventListener('mousemove', function () {
   });
 
 
-
-// console.log(appData.getTargetMonth());
-
-// console.log(appData.getStatusIncome());
-
-// console.log("Наша программа включает в себя данные: ");
-// for (let data in appData){
-//     console.log(data);
-// }
-
-
-// let expenses = appData.addExpenses.toString();
-
-// function titleCase(str) {
-//     let splitStr = str.toLowerCase().split(' ');
-//     for (let i = 0; i < splitStr.length; i++) {
-//         splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-//     }
-//     return splitStr.join(' '); 
-//  }
-//  console.log(titleCase(expenses));
 
 
