@@ -24,17 +24,8 @@ let start = document.getElementById('start'),
     periodSelect = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items '),
     inputs = document.getElementsByTagName('input');
-
-
-
-function isString(str) {
-    if(isNaN(str)) {
-        return str;
-    } else {
-        str = prompt("Какие обязательные ежемесячные расходы у вас есть?");
-        isString(str);
-    }
-}
+    
+    
 
 
 let appData = {
@@ -77,7 +68,7 @@ let appData = {
         additionalIncomeValue.value = appData.addIncome.join(', '); 
         targetMonthValue.value = appData.getTargetMonth();
         incomePeriodValue.value = appData.calcPeriod();
-        periodSelect.addEventListener('mousemove', function () {
+        periodSelect.addEventListener('change', function () {
             incomePeriodValue.value = periodSelect.value * appData.budgetMonth;
            });
     },
@@ -189,22 +180,35 @@ let appData = {
             appData.start();
         } 
     },
-    inputWords: function() {
-
-        for(let i = 0; i < inputs.length; i++){
-            inputs[i].replace(/[^0-9]/g,'');
+    applyDigitInput: function(){
+        let inputDigit = document.querySelectorAll('input[placeholder= "Сумма"]');
+        for(let i = 0; i<inputDigit.length; i++){
+            inputDigit[i].addEventListener('input', function(){
+                this.value = this.value.replace(/[^\d.]/g, '');
+            });
         }
-        
+    },
+    applyTextInput: function(){
+        let inputText = document.querySelectorAll('input[placeholder= "Наименование"]');
+        for(let i = 0; i<inputText.length; i++){
+            inputText[i].addEventListener('input', function(){
+                this.value = this.value.replace(/[^. ,а-я]/g, '');
+            });
+        }
     }
 }
-appData.inputWords();
+
+
 start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('mousemove', function () {
+expensesAdd.addEventListener('click', appData.applyDigitInput);
+expensesAdd.addEventListener('click', appData.applyTextInput);
+document.addEventListener('click', appData.applyTextInput);
+document.addEventListener('click', appData.applyDigitInput);
+periodSelect.addEventListener('change', function() {
    document.querySelector('.period-amount').innerHTML = periodSelect.value;
   });
-
 
 
 
