@@ -180,18 +180,14 @@ let appData = {
     },
     getStartEnable: function() {
         if(salaryAmount.value !== ''){ 
-            start.disabled = false;
-            start.style.cursor= 'pointer';
-        } else {
-            start.disabled = true;
-            start.style.cursor= 'not-allowed';
-        }
+            appData.start();
+        } 
     }
 }
-start.disabled = true;
-start.style.cursor= "not-allowed";
-document.addEventListener('mousemove', appData.getStartEnable);
-start.addEventListener('click', appData.start);
+// start.disabled = true;
+// start.style.cursor= "not-allowed";
+// document.addEventListener('mousemove', appData.getStartEnable);
+start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('change', function () {
