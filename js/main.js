@@ -76,7 +76,7 @@ let appData = {
         additionalIncomeValue.value = appData.addIncome.join(', '); 
         targetMonthValue.value = appData.getTargetMonth();
         incomePeriodValue.value = appData.calcPeriod();
-        periodSelect.addEventListener('change', function () {
+        periodSelect.addEventListener('mousemove', function () {
             incomePeriodValue.value = periodSelect.value * appData.budgetMonth;
            });
     },
@@ -190,7 +190,7 @@ let appData = {
 start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('change', function () {
+periodSelect.addEventListener('mousemove', function () {
    document.querySelector('.period-amount').innerHTML = periodSelect.value;
   });
 
