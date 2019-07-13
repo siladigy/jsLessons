@@ -23,9 +23,9 @@ let start = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items '),
-    inputs = document.getElementsByTagName('input'),
-    inputDigit = document.querySelectorAll('input[placeholder= "Сумма"]'),
-    inputText = document.querySelectorAll('input[placeholder= "Наименование"]');
+    inputs = document.getElementsByTagName('input');
+    
+    
 
 
 let appData = {
@@ -68,7 +68,7 @@ let appData = {
         additionalIncomeValue.value = appData.addIncome.join(', '); 
         targetMonthValue.value = appData.getTargetMonth();
         incomePeriodValue.value = appData.calcPeriod();
-        periodSelect.addEventListener('mousemove', function () {
+        periodSelect.addEventListener('change', function () {
             incomePeriodValue.value = periodSelect.value * appData.budgetMonth;
            });
     },
@@ -181,6 +181,7 @@ let appData = {
         } 
     },
     applyDigitInput: function(){
+        let inputDigit = document.querySelectorAll('input[placeholder= "Сумма"]');
         for(let i = 0; i<inputDigit.length; i++){
             inputDigit[i].addEventListener('input', function(){
                 this.value = this.value.replace(/[^\d.]/g, '');
@@ -188,6 +189,7 @@ let appData = {
         }
     },
     applyTextInput: function(){
+        let inputText = document.querySelectorAll('input[placeholder= "Наименование"]');
         for(let i = 0; i<inputText.length; i++){
             inputText[i].addEventListener('input', function(){
                 this.value = this.value.replace(/[^. ,а-я]/g, '');
@@ -196,12 +198,15 @@ let appData = {
     }
 }
 
-appData.applyTextInput();
-appData.applyDigitInput();
+
 start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('mousemove', function () {
+expensesAdd.addEventListener('click', appData.applyDigitInput);
+expensesAdd.addEventListener('click', appData.applyTextInput);
+document.addEventListener('click', appData.applyTextInput);
+document.addEventListener('click', appData.applyDigitInput);
+periodSelect.addEventListener('change', function() {
    document.querySelector('.period-amount').innerHTML = periodSelect.value;
   });
 
