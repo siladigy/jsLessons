@@ -23,18 +23,9 @@ let start = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     incomeItem = document.querySelectorAll('.income-items '),
-    inputs = document.getElementsByTagName('input');
-
-
-
-function isString(str) {
-    if(isNaN(str)) {
-        return str;
-    } else {
-        str = prompt("Какие обязательные ежемесячные расходы у вас есть?");
-        isString(str);
-    }
-}
+    inputs = document.getElementsByTagName('input'),
+    inputDigit = document.querySelectorAll('input[placeholder= "Сумма"]'),
+    inputText = document.querySelectorAll('input[placeholder= "Наименование"]');
 
 
 let appData = {
@@ -189,15 +180,24 @@ let appData = {
             appData.start();
         } 
     },
-    inputWords: function() {
-
-        for(let i = 0; i < inputs.length; i++){
-            inputs[i].replace(/[^0-9]/g,'');
+    applyDigitInput: function(){
+        for(let i = 0; i<inputDigit.length; i++){
+            inputDigit[i].addEventListener('input', function(){
+                this.value = this.value.replace(/[^\d.]/g, '');
+            });
         }
-        
+    },
+    applyTextInput: function(){
+        for(let i = 0; i<inputText.length; i++){
+            inputText[i].addEventListener('input', function(){
+                this.value = this.value.replace(/[^. ,а-я]/g, '');
+            });
+        }
     }
 }
-appData.inputWords();
+
+appData.applyTextInput();
+appData.applyDigitInput();
 start.addEventListener('click', appData.getStartEnable);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 incomeAdd.addEventListener('click', appData.addIncomeBlock);
