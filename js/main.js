@@ -86,7 +86,7 @@ let appData = {
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
         expensesItems = document.querySelectorAll('.expenses-items');
         if(expensesItems.length === 3){
-            expensesAdd.style.display = 'none';
+            this.style.display = 'none';
         }
     },
     getExpenses: function() {
@@ -106,7 +106,7 @@ let appData = {
         incomeItem[0].parentNode.insertBefore(cloneIncomeItem, incomeAdd);
         incomeItem = document.querySelectorAll('.income-items');
         if(incomeItem.length === 3){
-            incomeAdd.style.display = 'none';
+            this.style.display = 'none';
         }
     },
     getIncome: function () {
@@ -117,8 +117,8 @@ let appData = {
                 appData.income[itemIncome] = cashIncome;
             }   
         });
-        for (let key in appData.income){
-            appData.incomeMonth += +appData.income[key];
+        for (let key in this.income){
+            this.incomeMonth += +this.income[key];
         }
     },
     getAddExpenses: function() {
@@ -139,36 +139,18 @@ let appData = {
         });
     },
     getExpensesMonth: function() {
-        for (let key in appData.expenses){
-            appData.expensesMonth  += +appData.expenses[key];
+        for (let key in this.expenses){
+            this.expensesMonth  += +this.expenses[key];
         }; 
     },  
     getBudget: function() {
-        let month = appData.budget + appData.incomeMonth - appData.expensesMonth;
-        appData.budgetMonth = month;
-        let day = Math.floor(appData.budgetMonth / 30);
-        appData.budgetDay = day;
+        let month = this.budget + this.incomeMonth - this.expensesMonth;
+        this.budgetMonth = month;
+        let day = Math.floor(this.budgetMonth / 30);
+        this.budgetDay = day;
     },
     getTargetMonth: function() {
-        return Math.ceil(targetAmount.value/appData.budgetMonth);
-    },
-    getStatusIncome: function() {
-        if(appData.budgetDay>800) return("Высокий уровень дохода");
-        else if(appData.budgetDay>300 && appData.budgetDay<800) return("Средний уровень дохода");
-        else if(appData.budgetDay>0 && appData.budgetDay<300) return("Низкий уровень дохода");
-        else return("Что то пошло не так");
-    },
-    getInfoDeposit: function () {
-        if(appData.deposit){
-            appData.percentDeposit = +prompt("какой годовой процент?", "10");
-            while(isNaN(appData.percentDeposit) || appData.percentDeposit == '' || appData.percentDeposit == null){
-                appData.percentDeposit = +prompt("какой годовой процент?", "10");
-                } 
-            appData.moneyDeposit =  +prompt("какая сумма заложена", 10000);
-            while(isNaN(appData.moneyDeposit) || appData.moneyDeposit == '' || appData.moneyDeposit == null){
-                appData.moneyDeposit =  +prompt("какая сумма заложена", 10000);
-                } 
-        }
+        return Math.ceil(targetAmount.value/this.budgetMonth);
     },
     calcPeriod: function () {
         return this.budgetMonth * periodSelect.value; 
