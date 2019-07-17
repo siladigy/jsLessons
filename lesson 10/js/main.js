@@ -23,6 +23,6 @@ function DomElement(selector, height, width, bg, fontSize) {
     };
   }
 
-let obj = new DomElement(".hello", 100, 100, "red", 50);
+let obj = new DomElement(".hello", 200, 200, "red", 50);
 
 obj.createElement();
