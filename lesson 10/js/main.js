@@ -16,13 +16,17 @@ function DomElement(selector, height, width, bg, fontSize) {
            str.innerHTML = selector.substr(1);
            document.body.appendChild(str);
         }
-        str.style.height = height + "px";
-        str.style.width = width + "px";
-        str.style.background = bg;
-        str.style.fontSize = fontSize + "px";
+        str.style.cssText="height: 200px; \
+                          width: 200px; \
+                          background: red;\
+                          fontSize: 50px;\
+                          ";
     };
   }
 
 let obj = new DomElement(".hello", 200, 200, "red", 50);
 
+
 obj.createElement();
+
+
