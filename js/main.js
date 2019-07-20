@@ -56,10 +56,9 @@ AppData.prototype.start = function() {
     this.getExpenses(); 
     this.getIncome();
     this.getExpensesMonth();
-    this.getAddData(additionalExpensesItem.value.split(','), addExpenses);
-    this.getAddData(additionalIncomeItem, addIncome);
     this.getInfoDeposit(); 
     this.getBudget();
+    this.getAddData();
 
     this.showResult();
 };
@@ -120,14 +119,24 @@ AppData.prototype.getIncome = function () {
     }
 };
 
-AppData.prototype.getAddData = function(data, addData) {
-    data.forEach((item) => {
-        if (item.value) item = item.value;
-        let itemValue = item.trim();
-        if (item !== ''){
-            this.addData.push(item);
+AppData.prototype.getAddData =  function() {
+
+    let addExpenses = additionalExpensesItem.value.split(',');
+        addExpenses.forEach(function(item){
+            item = item.trim();
+            if (item !== ''){
+                appData.addExpenses.push(item);
+            }
+        });
+
+    additionalIncomeItem.forEach(function(item){
+        let itemValue = item.value.trim();
+        if (itemValue !== ''){
+            appData.addIncome.push(itemValue); 
         }
     });
+
+
 };
 
 AppData.prototype.getExpensesMonth = function() {
