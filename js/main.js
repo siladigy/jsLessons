@@ -1,6 +1,6 @@
 'use strict';
 
-let start = document.getElementById('start'),
+const start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     incomeAdd = document.getElementsByTagName('button')[0],
     expensesAdd = document.getElementsByTagName('button')[1],
@@ -58,7 +58,8 @@ AppData.prototype.start = function() {
     this.getExpensesMonth();
     this.getInfoDeposit(); 
     this.getBudget();
-    this.getAddData();
+    this.getAddData(additionalExpensesItem.value.split(','), 'addExpenses');
+    this.getAddData(additionalIncomeItem, 'addIncome');
 
     this.showResult();
 };
@@ -94,8 +95,10 @@ AppData.prototype.getExpenses = function() {
     });
 };
 
-AppData.prototype.getBlocks = function(data, btn, elem) {
-    let cloneItem = data[0].cloneNode(true);
+AppData.prototype.getBlocks = function(elem) {
+    let data = document.querySelectorAll(elem),
+        btn = data[0].parentNode.querySelector('button'),
+        cloneItem = data[0].cloneNode(true);
     for (let i = 0; i < cloneItem.childNodes.length; i++) {
         cloneItem.childNodes[i].value = "";
     }
@@ -119,24 +122,13 @@ AppData.prototype.getIncome = function () {
     }
 };
 
-AppData.prototype.getAddData =  function() {
+AppData.prototype.getAddData =  function(data, itemValue) {
 
-    let addExpenses = additionalExpensesItem.value.split(',');
-        addExpenses.forEach(function(item){
-            item = item.trim();
-            if (item !== ''){
-                appData.addExpenses.push(item);
-            }
-        });
-
-    additionalIncomeItem.forEach(function(item){
-        let itemValue = item.value.trim();
-        if (itemValue !== ''){
-            appData.addIncome.push(itemValue); 
-        }
+    data.forEach( (item) => {
+        if(item.value) item = item.value;
+        item = item.trim();
+        if (item !== '') appData[itemValue].push(item);
     });
-
-
 };
 
 AppData.prototype.getExpensesMonth = function() {
@@ -198,10 +190,10 @@ AppData.prototype.reset = function() {
 AppData.prototype.eventsListeners = function() {
     start.addEventListener('click', appData.getStartEnable.bind(appData));
     expensesAdd.addEventListener('click', () => {
-        appData.getBlocks(expensesItems, expensesAdd, '.expenses-items');
+        appData.getBlocks('.expenses-items');
     });
     incomeAdd.addEventListener('click', () => {
-        appData.getBlocks(incomeItem, incomeAdd, '.income-items');
+        appData.getBlocks('.income-items');
     });
     document.addEventListener('click', appData.applyTextInput);
     document.addEventListener('click', appData.applyDigitInput);
