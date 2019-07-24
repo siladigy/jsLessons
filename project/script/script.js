@@ -88,14 +88,20 @@ const togglePopup = () => {
         popupClose = document.querySelector('.popup-close'),
         popupContent = document.querySelector('.popup-content');
 
+    const screenWidth = () => {
+      if(window.outerWidth > 800) popupContent.classList.toggle('popup-active');
+    }
+
         popupBtn.forEach((btn) => {
           btn.addEventListener('click', () => {
             popup.style.display = 'block';
-            popupContent.classList.toggle('popup-active');
+            screenWidth();
             });
         });
+
         popupClose.addEventListener('click', () => {
           popup.style.display = 'none';
+          screenWidth();
         });
 }
 togglePopup();

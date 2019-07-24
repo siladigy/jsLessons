@@ -80,8 +80,8 @@ body {
   body .active-menu {
     -webkit-transition: 1s;
     transition: 1s;
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%); }
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%); }
   body ul {
     list-style: none;
     padding: 0;
