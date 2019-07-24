@@ -799,12 +799,13 @@ footer .web {
     transform: translateX(-50px);
     padding: 2rem 6rem;
     background-color: #24241f
+    
 }
 
 .popup .popup-active{
+    top: 30%;
     -webkit-transition: 1s;
-    transition: 1s;
-    top: 40%;
+    transition: 1s
 }
 
 .popup .form-btn {
