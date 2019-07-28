@@ -84,8 +84,25 @@ const togglePopup = () => {
         popupBtn = document.querySelectorAll('.popup-btn'),
         popupContent = document.querySelector('.popup-content');
 
+
+    const animation = () => {
+      let pos = 0;
+      setInterval(frame, 1);
+        function frame() {
+          if (pos == 150) {
+            clearInterval(setInterval(frame, 1));
+          } else {
+            pos++; 
+            popupContent.style.top = pos + "px"; 
+          }
+        }
+    };
+
     const screenWidth = () => {
-      if(window.outerWidth > 800) popupContent.classList.toggle('popup-active');
+      if(window.outerWidth > 800){  
+        animation();
+      }
+       
     }
 
         popupBtn.forEach((btn) => {
@@ -100,13 +117,13 @@ const togglePopup = () => {
 
             if(target.classList.contains('popup-close')){
               popup.style.display = 'none';
-                screenWidth();
+              clearInterval(animation);
             } else {
               target = target.closest('.popup-content');
 
               if(!target){
                 popup.style.display = 'none';
-                screenWidth();
+                clearInterval(animation);
               }
             }
               
@@ -290,11 +307,69 @@ const attr = () => {
      calcBlock.addEventListener('input', (e) => {
 
       let target = event.target;
-
+      if(!target.matches('.calc-type')){
       target.value = target.value.replace(/\D/g, '');
-
+      }
      });
 
 }
 attr();
 
+
+// calculator
+
+const calc = (price = 100) => {
+
+  const calcBlock = document.querySelector('.calc-block'),
+        calcType = document.querySelector('.calc-type'),
+        calcSquare = document.querySelector('.calc-square'),
+        calcDay = document.querySelector('.calc-day'),
+        calcCount = document.querySelector('.calc-count'),
+        totalValue = document.getElementById('total');
+
+        let countSum = () => {
+          let total = 0,
+              countValue = 1,
+              dayValue = 1;
+          const typeValue = calcType.options[calcType.selectedIndex].value,
+               squareValue = +calcSquare.value;
+
+               if(calcCount.value > 1){
+                countValue += (calcCount.value - 1) / 10;
+               }
+
+               if(calcDay.value && calcDay.value < 5){
+                 dayValue *= 2;
+               }else if (calcDay.value && calcDay.value < 10) {
+                 dayValue *= 1.5;
+               }
+              if(typeValue && squareValue){
+                total = price * typeValue * squareValue * countValue * dayValue;
+              }
+
+              const count = () => {
+                let current = 0;
+               let timer = setInterval( () => {
+                 if(total > 0 && current < total){
+                  current += 10;
+                  totalValue.textContent = current;
+                 }
+                  else {
+                      clearInterval(timer);
+                      totalValue.textContent = Math.ceil(total);
+                  }
+              }, 1);
+              };
+
+            count();
+        };
+
+        calcBlock.addEventListener('change',(event) => {
+          let target = event.target;
+          if(target.matches('.calc-type') || target.matches('.calc-square') || target.matches('.calc-day') || target.matches('.calc-count')){
+            countSum();
+          }
+        });
+
+};
+calc(100);
