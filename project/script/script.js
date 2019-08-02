@@ -388,6 +388,8 @@ window.addEventListener('DOMContentLoaded', function(){
             form3 = document.getElementById('form3');
   
       const statusMessage = document.createElement('div');
+
+      statusMessage.style.color = "white";
       
       const submitForm = (form) => {
       form.addEventListener('submit', (event) => {
